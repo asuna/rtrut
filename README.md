@@ -26,5 +26,5 @@
 5. 按任意键开始安装，可以按+c退出。
 
 ## 四、来源    
->   Script:[https://github.com/wangyan/rtrut](https://github.com/wangyan/rtrut)
+>   Script:[https://github.com/wangyan/rtrut](https://github.com/wangyan/rtrut)    
 >	ipv6 patch:[https://github.com/JohnFlowerful](https://github.com/JohnFlowerful)
