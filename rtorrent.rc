@@ -100,6 +100,3 @@ peer_exchange = no
 # before forcing. Overworked systems might need lower values to get a
 # decent hash checking rate.
 #hash_max_tries = 10
-execute_nothrow=rm,/tmp/rpc.socket
-scgi_local = /tmp/rpc.socket
-schedule = chmod,0,0,"execute=chmod,777,/tmp/rpc.socket"
