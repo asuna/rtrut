@@ -34,6 +34,13 @@ read -p "(Default: n):" INSTALL_RUTORRENT
 if [ -z $INSTALL_RUTORRENT ]; then
 	INSTALL_RUTORRENT="n"
 fi
+
+echo "Do you want support ipv6 on rTorrent ? (y/n)"
+read -p "(Default: n):" SUPPORT_IPV6
+if [ -z $SUPPORT_IPV6 ]; then
+	SUPPORT_IPV6="n"
+fi
+
 echo "---------------------------"
 echo "You choose = $INSTALL_RUTORRENT"
 echo "---------------------------"
@@ -62,9 +69,9 @@ if [ "$INSTALL_RUTORRENT" = "y" ]; then
 	echo ""
 
 	echo "Please input the nginx config path:"
-	read -p "(Default path: /usr/local/nginx/conf/vhosts/localhost.conf):" NGINX_CONFIG
+	read -p "(Default path: /usr/local/nginx/conf/nginx.conf):" NGINX_CONFIG
 	if [ -z $NGINX_CONFIG ]; then
-		NGINX_CONFIG="/usr/local/nginx/conf/vhosts/localhost.conf"
+		NGINX_CONFIG="/usr/local/nginx/conf/nginx.conf"
 	fi
 	echo "---------------------------"
 	echo "Nginx config path=$NGINX_CONFIG"
@@ -122,7 +129,13 @@ if [ ! -s libtorrent-*.tar.gz ]; then
 fi
 tar -zxf libtorrent-*.tar.gz
 cd libtorrent-*
+if [ "$SUPPORT_IPV6" = "y" ]; then
+	mv ../libtorrent-*-tar.patch ./
+	patch -p1 < libtorrent-*-tar.patch
+	./configure --enable-ipv6
+else
 ./configure
+fi
 make && make install
 ldconfig
 
@@ -135,7 +148,13 @@ if [ ! -s rtorrent-*.tar.gz ]; then
 fi
 tar -zxf rtorrent-*.tar.gz
 cd rtorrent-*
-./configure --with-xmlrpc-c
+if [ "$SUPPORT_IPV6" = "y" ]; then
+	mv ../rtorrent-*-tar.patch ./
+	patch -p1 < rtorrent-*-tar.patch
+	./configure --enable-ipv6 --with-xmlrpc-c
+else
+ ./configure --with-xmlrpc-c
+fi
 make && make install
 
 echo "---------- rTorrent conf ----------"
@@ -161,6 +180,12 @@ if [ "$INSTALL_RUTORRENT" = "y" ]; then
 	fi
 	tar -zxf rutorrent-*.tar.gz
 	mv rutorrent  $WEBROOT
+
+	if [[ ! -s plugins-*.tar.gz ]]; then
+		wget http://dl.bintray.com/novik65/generic/plugins-3.6.tar.gz -O"plugins-3.6.tar.gz"
+	fi
+	tar -zxf plugins-*.tar.gz
+	mv plugins $WEBROOT/rutorrent
 
 	cp $WEBROOT/rutorrent/conf/config.php $WEBROOT/rutorrent/conf/config.php.bak
 	sed -i 's/\/\/ $scgi/$scgi/g' $WEBROOT/rutorrent/conf/config.php
