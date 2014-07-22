@@ -52,9 +52,9 @@ if [ "$INSTALL_RUTORRENT" = "y" ]; then
 	echo ""
 
 	echo "Please enter the webroot dir:"
-	read -p "(Default webroot dir: /var/www):" WEBROOT
+	read -p "(Default webroot dir: /home/wwwroot):" WEBROOT
 	if [ -z $WEBROOT ]; then
-		WEBROOT="/var/www"
+		WEBROOT="/home/wwwroot"
 	fi
 	echo "---------------------------"
 	echo "Webroot dir=$WEBROOT"
@@ -157,7 +157,7 @@ if [ "$INSTALL_RUTORRENT" = "y" ]; then
 	EOF
 
 	if [ ! -s rutorrent-*.tar.gz ]; then
-		wget http://rutorrent.googlecode.com/files/rutorrent-3.4.tar.gz
+		wget http://dl.bintray.com/novik65/generic/rutorrent-3.6.tar.gz -O"rutorrent-3.6.tar.gz"
 	fi
 	tar -zxf rutorrent-*.tar.gz
 	mv rutorrent  $WEBROOT
