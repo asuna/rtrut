@@ -13,11 +13,12 @@
 ## 三、安装步骤
 
 1. 选择是否需要安装ruTorrent，默认值`y`，如果选择`n`，则跳至最后一步。
-2. 输入IP或者域名，默认会自动获取，如果不准确请手动输入。
-3. 选择网站根目录，比如：/`home/wwwroot`或者`/home/wwwroot/default`
-4. 输入Nginx配置文件绝对路径，LNMP一键安装包的默认值是：
+2. 选择是否需要支持ipv6，默认值`n`，请确认安装环境是否支持ipv6。
+3. 输入IP或者域名，默认会自动获取，如果不准确请手动输入。
+4. 选择网站根目录，比如：/`home/wwwroot`或者`/home/wwwroot/default`
+5. 输入Nginx配置文件绝对路径，LNMP一键安装包的默认值是：
     `/usr/local/nginx/conf/nginx.conf`
-5. 按任意键开始安装，可以按+c退出。
+6. 按任意键开始安装，可以按+c退出。
 
 ## 四、来源    
 >   Script:[https://github.com/wangyan/rtrut](https://github.com/wangyan/rtrut)    
